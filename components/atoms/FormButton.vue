@@ -1,6 +1,8 @@
 <template>
   <div class="form-button">
-    <button :type="type" @click="$emit('click')">{{ text }}</button>
+    <button :type="type" :disabled="disabled" @click="$emit('click')">
+      {{ text }}
+    </button>
   </div>
 </template>
 
@@ -15,6 +17,10 @@ export default Vue.extend({
     type: {
       type: String,
       default: "submit",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 });

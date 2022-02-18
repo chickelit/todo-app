@@ -8,7 +8,6 @@
       <FormField
         label="Email"
         type="email"
-        :required="true"
         :disabled="true"
         value="example@gmail.com"
       />

@@ -1,5 +1,5 @@
 <template>
-  <div :class="['form-field', { active, 'not-empty': content }]">
+  <div :class="['form-field', { active, 'not-empty': content, error }]">
     <label for="field" class="label">{{ label }}</label>
     <input
       v-model="content"
@@ -44,6 +44,10 @@ export default Vue.extend({
     value: {
       type: String || Number,
       default: "",
+    },
+    error: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -91,6 +95,13 @@ export default Vue.extend({
       font-size: 0.8rem;
       top: -0.6rem;
       left: 0.5rem;
+    }
+  }
+  &.error {
+    animation-name: bounce;
+    animation-duration: 0.5s;
+    .input {
+      border-color: red;
     }
   }
 }

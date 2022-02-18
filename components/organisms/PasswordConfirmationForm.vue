@@ -2,6 +2,7 @@
   <div class="password-confirmation-form">
     <h1 class="title">Confirmar senha</h1>
     <form autocomplete="off" @submit.prevent="onSubmit">
+      <slot />
       <FormField
         v-model="password"
         label="Senha"

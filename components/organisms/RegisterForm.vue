@@ -1,15 +1,67 @@
 <template>
   <div class="register-form">
     <h1 class="title">Criar conta</h1>
-    <form autocomplete="off" @submit.prevent="">
-      <FormField label="Email" type="email" :required="true" />
-      <FormButton text="Enviar email" type="submit" />
-      <NuxtLink class="form-link forgot-password" to="/login"
-        >Entrar</NuxtLink
-      >
+    <form autocomplete="off" @submit.prevent="onSubmit">
+      <FormField
+        v-model="email"
+        :error="hasEmailError"
+        label="Email"
+        type="email"
+        :required="true"
+        :disabled="emailSent"
+      />
+      <FormButton :text="text" :disabled="emailSent" />
+      <NuxtLink class="form-link forgot-password" to="/login">Entrar</NuxtLink>
     </form>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { register } from "@/utils/store-accessor";
+
+export default Vue.extend({
+  data() {
+    return {
+      text: "Enviar email",
+      emailSent: false,
+      email: "",
+      hasEmailError: false,
+    };
+  },
+  methods: {
+    async onSubmit() {
+      try {
+        this.text = "Enviando...";
+
+        const response = await register.create({
+          email: this.email,
+          redirectUrl: "http://127.0.0.1:3000",
+        });
+
+        if (response.message === "Email sent") {
+          this.text = "Email enviado";
+          this.emailSent = true;
+        }
+        
+        if (response.error) {
+          throw response.error;
+        }
+      } catch (error: any) {
+        if (error.status === 422) {
+          if (error.data.field === "email") {
+            this.hasEmailError = true;
+
+            setTimeout(() => {
+              this.hasEmailError = false;
+            }, 750);
+          }
+        }
+      }
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .register-form {

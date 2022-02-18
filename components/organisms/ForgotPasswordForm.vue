@@ -6,7 +6,7 @@
       <NuxtLink class="form-link forgot-password" to="/login"
         >Entrar</NuxtLink
       >
-      <FormButton text="Enviar email" type="submit" />
+      <FormButton text="Enviar email" />
       <NuxtLink class="form-link register" to="/register"
         >Não tem uma conta?</NuxtLink
       >

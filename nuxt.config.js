@@ -30,10 +30,10 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ["normalize.css/normalize.css"],
+  css: ["normalize.css/normalize.css", "@assets/scss/base.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ["@/plugins/accessor"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [{ path: "@/components/", pathPrefix: false }],
@@ -44,13 +44,13 @@ export default {
     "@nuxt/typescript-build",
   ],
 
-  styleResources: {
-    scss: ["@/assets/scss/base.scss"],
-  },
-
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/axios"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  axios: {
+    baseUrl: "http://localhost:3333",
+  },
 };

@@ -7,7 +7,7 @@
       <NuxtLink class="form-link forgot-password" to="/forgot-password"
         >Esqueceu a senha?</NuxtLink
       >
-      <FormButton text="Login" type="submit" />
+      <FormButton text="Login" />
       <NuxtLink class="form-link register" to="/register"
         >Não tem uma conta?</NuxtLink
       >
