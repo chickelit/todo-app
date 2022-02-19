@@ -1,56 +1,8 @@
 <template>
   <div class="finish-register-template">
-    <FinishRegisterForm
-      v-if="!passwordConfirmationActive"
-      @passwordConfirmation="passwordConfirmation($event)"
-    />
-    <PasswordConfirmationForm v-else @confirmed="finishRegister">
-      <FormField
-        label="Email"
-        type="email"
-        :required="true"
-        :disabled="true"
-        value="example@gmail.com"
-      />
-    </PasswordConfirmationForm>
+    <FinishRegisterForm />
   </div>
 </template>
-
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  data() {
-    return {
-      passwordConfirmationActive: false,
-      form: {
-        name: "",
-        username: "",
-        password: "",
-        passwordConfirmation: "",
-      },
-    };
-  },
-  methods: {
-    passwordConfirmation(event: any) {
-      this.passwordConfirmationActive = true;
-      this.form = {
-        ...this.form,
-        name: event.name,
-        username: event.username,
-      };
-    },
-    finishRegister(event: any) {
-      this.form = {
-        ...this.form,
-        password: event.password,
-        passwordConfirmation: event.passwordConfirmation,
-      };
-
-      this.$router.push("/login");
-    },
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .finish-register-template {

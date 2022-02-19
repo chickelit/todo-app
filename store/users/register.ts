@@ -1,4 +1,5 @@
 import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
+import { Key } from "~/Models";
 import { $axios } from "~/utils/nuxt-instance";
 
 interface StorePayload {
@@ -16,14 +17,14 @@ interface UpdatePayload {
 
 @Module({ name: "users/register", stateFactory: true, namespaced: true })
 export default class Register extends VuexModule {
-  private keyInstance: string = "";
+  private keyInstance = {} as Key;
 
   public get $key() {
     return this.keyInstance;
   }
 
   @Mutation
-  private UPDATE_KEY(key: string) {
+  private UPDATE_KEY(key: Key) {
     this.keyInstance = key;
   }
 
@@ -47,6 +48,12 @@ export default class Register extends VuexModule {
 
   @Action
   public async update(payload: UpdatePayload) {
-    await $axios.$put("/register", payload);
+    try {
+      const data = await $axios.$put("/register", payload);
+
+      return data;
+    } catch (error: any) {
+      return { error: error.response };
+    }
   }
 }

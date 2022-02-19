@@ -42,12 +42,11 @@ export default Vue.extend({
         if (response.message === "Email sent") {
           this.text = "Email enviado";
           this.emailSent = true;
-        }
-        
-        if (response.error) {
+        } else {
           throw response.error;
         }
       } catch (error: any) {
+        this.text = "Enviar email";
         if (error.status === 422) {
           if (error.data.field === "email") {
             this.hasEmailError = true;
