@@ -2,45 +2,9 @@
   <div class="todo-list">
     <div class="scroll-wrapper">
       <div class="list">
-        <div class="todo">
+        <div v-for="todo in $all" :key="todo.id" class="todo">
           <div class="task">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </div>
-          <div class="buttons">
-            <div class="complete"></div>
-            <div class="delete"></div>
-          </div>
-        </div>
-        <div class="todo">
-          <div class="task">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </div>
-          <div class="buttons">
-            <div class="complete"></div>
-            <div class="delete"></div>
-          </div>
-        </div>
-        <div class="todo">
-          <div class="task">
-            Lorem ipsum, dolor sit amet consectetur adipisicing.
-          </div>
-          <div class="buttons">
-            <div class="complete"></div>
-            <div class="delete"></div>
-          </div>
-        </div>
-        <div class="todo">
-          <div class="task">
-            Lorem, ipsum dolor.
-          </div>
-          <div class="buttons">
-            <div class="complete"></div>
-            <div class="delete"></div>
-          </div>
-        </div>
-        <div class="todo">
-          <div class="task">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. A, commodi repellat! Accusamus.
+            {{ todo.task }}
           </div>
           <div class="buttons">
             <div class="complete"></div>
@@ -54,8 +18,15 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { todos } from "~/store";
 
-export default Vue.extend({});
+export default Vue.extend({
+  computed: {
+    $all() {
+      return todos.$all;
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

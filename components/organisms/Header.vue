@@ -17,5 +17,9 @@ export default Vue.extend({
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
+  h1 {
+    padding: 0;
+    margin: 0;
+  }
 }
 </style>

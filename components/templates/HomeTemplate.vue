@@ -2,6 +2,7 @@
   <div class="home-template">
     <div class="wrapper">
       <Header />
+      <TodoCreation />
       <TodoList />
     </div>
   </div>
@@ -24,6 +25,10 @@
     background: white;
     border-radius: 3rem;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content max-content 1fr;
+    gap: 2rem 5rem;
     @include screen("small") {
       width: calc(100% - 4rem);
       height: calc(100% - 4rem);
