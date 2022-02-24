@@ -1,18 +1,66 @@
 <template>
   <div class="forgot-password-form">
     <h1 class="title">Recuperar senha</h1>
-    <form autocomplete="off" @submit.prevent="">
-      <FormField label="Email" type="email" :required="true" />
-      <NuxtLink class="form-link forgot-password" to="/login"
-        >Entrar</NuxtLink
-      >
-      <FormButton text="Enviar email" />
+    <form autocomplete="off" @submit.prevent="onSubmit">
+      <FormField
+        v-model="email"
+        label="Email"
+        type="email"
+        :required="true"
+        :disabled="emailSent"
+      />
+      <NuxtLink class="form-link forgot-password" to="/login">Entrar</NuxtLink>
+      <FormButton :text="text" :disabled="emailSent" />
       <NuxtLink class="form-link register" to="/register"
         >Não tem uma conta?</NuxtLink
       >
     </form>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { forgotPassword } from "~/store";
+export default Vue.extend({
+  data() {
+    return {
+      email: "",
+      text: "Enviar email",
+      emailSent: false,
+      hasEmailError: false,
+    };
+  },
+  methods: {
+    async onSubmit() {
+      try {
+        this.text = "Enviando email..."
+        const response = await forgotPassword.create({
+          email: this.email,
+          redirectUrl: "http://127.0.0.1:3000",
+        });
+
+        if (response.message === "Email sent") {
+          this.text = "Email enviado";
+          this.emailSent = true;
+        } else {
+          throw response.error;
+        }
+      } catch (error: any) {
+        this.text = "Enviar email";
+        if (error.status === 422) {
+          if (error.data.field === "email") {
+            this.hasEmailError = true;
+
+            setTimeout(() => {
+              this.hasEmailError = false;
+            }, 750);
+          }
+        }
+      }
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .forgot-password-form {

@@ -1,20 +1,12 @@
 <template>
-  <div class="finish-register-form">
-    <h1 class="title">Cadastrar</h1>
-    <form autocomplete="off" @submit.prevent="onSubmit">
-      <FormField label="Email" :disabled="true" :value="$keyInstance.email" />
-      <FormField
-        v-model="form.name"
-        :max-length="32"
-        label="Nome"
-        :required="true"
-      />
-      <FormField
-        v-model="form.username"
-        label="Nome de usuário"
-        :required="true"
-        :error="hasUsernameError"
-      />
+  <div class="change-password-form">
+    <h1 class="title">Atualizar senha</h1>
+    <form
+      name="change-password-form"
+      autocomplete="off"
+      @submit.prevent="onSubmit"
+    >
+      <FormField label="Email" :disabled="true" :value="$key.email" />
       <FormField
         v-model="form.password"
         label="Senha"
@@ -32,30 +24,31 @@
       >
         {{ $text }}
       </div>
-      <FormButton text="Enviar" :disabled="$unconfirmed" />
-      <NuxtLink class="form-link forgot-password" to="/login">Entrar</NuxtLink>
+      <FormButton
+        text="Enviar"
+        :error="hasUnknownError"
+        :disabled="$unconfirmed"
+      />
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { register } from "~/store";
+import { forgotPassword } from "~/store";
 export default Vue.extend({
   data() {
     return {
-      hasUsernameError: false,
       form: {
-        name: "",
-        username: "",
         password: "",
         passwordConfirmation: "",
       },
+      hasUnknownError: false,
     };
   },
   computed: {
-    $keyInstance() {
-      return register.$key;
+    $key() {
+      return forgotPassword.$key;
     },
     $isEmpty(): boolean {
       return (
@@ -83,29 +76,22 @@ export default Vue.extend({
   },
   methods: {
     async onSubmit() {
-      if (this.$unconfirmed) return;
-
       try {
-        const response = await register.update({
+        await forgotPassword.update({
+          key: this.$key.key,
           ...this.form,
-          key: this.$keyInstance.key,
         });
 
-        if (response.error) {
-          throw response.error;
-        }
-
         this.$router.push("/login");
-      } catch (error: any) {
-        if (error.status === 422) {
-          if (error.data.details[0].context.key === "username") {
-            this.hasUsernameError = true;
+      } catch (error) {
+        this.hasUnknownError = true;
 
-            setTimeout(() => {
-              this.hasUsernameError = false;
-            }, 750);
-          }
-        }
+        this.form = {
+          password: "",
+          passwordConfirmation: "",
+        };
+
+        document.forms.namedItem("change-password-form")?.reset();
       }
     },
   },
@@ -113,7 +99,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.finish-register-form {
+.change-password-form {
   background: white;
   box-sizing: border-box;
   width: 24rem;
@@ -142,9 +128,6 @@ export default Vue.extend({
       color: gray;
       text-decoration: none;
       width: max-content;
-      &.forgot-password {
-        justify-self: center;
-      }
     }
     .sign {
       &.confirmed {

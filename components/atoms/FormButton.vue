@@ -1,6 +1,11 @@
 <template>
   <div class="form-button">
-    <button :type="type" :disabled="disabled" @click="$emit('click')">
+    <button
+      :type="type"
+      :class="{ error }"
+      :disabled="disabled"
+      @click="$emit('click')"
+    >
       {{ text }}
     </button>
   </div>
@@ -22,6 +27,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    error: {
+      type: Boolean,
+      default: false,
+    },
   },
 });
 </script>
@@ -38,6 +47,11 @@ export default Vue.extend({
     transition: all 0.2s linear;
     &:hover {
       background: #565ed6;
+    }
+    &.error {
+      animation-name: bounce;
+      animation-duration: 0.5s;
+      background: red;
     }
   }
 }
