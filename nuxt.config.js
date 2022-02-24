@@ -33,7 +33,7 @@ export default {
   css: ["normalize.css/normalize.css", "@assets/scss/base.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["@/plugins/accessor"],
+  plugins: ["@/plugins/accessor", "@/plugins/axios"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [{ path: "@/components/", pathPrefix: false }],

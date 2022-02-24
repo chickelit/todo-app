@@ -1,8 +1,13 @@
 <template>
   <div class="todo-creation">
-    <form autocomplete="off" @submit.prevent="onSubmit">
-      <FormField v-model="text" label="Tarefa" />
-      <FormButton text="Criar" />
+    <form name="create-todo-form" autocomplete="off" @submit.prevent="onSubmit">
+      <FormField
+        v-model="task"
+        :clean="clean"
+        :error="hasError"
+        label="Tarefa"
+      />
+      <FormButton :text="text" />
     </form>
   </div>
 </template>
@@ -13,12 +18,37 @@ import { todos } from "~/store";
 export default Vue.extend({
   data() {
     return {
-      text: "",
+      text: "Criar",
+      task: "",
+      clean: false,
+      hasError: false,
     };
   },
   methods: {
-    onSubmit() {
-      todos.create({ task: this.text });
+    async onSubmit() {
+      try {
+        this.text = "Criando...";
+        await todos.create({ description: this.task });
+
+        this.task = "";
+        this.clean = true;
+
+        setTimeout(() => {
+          this.clean = false;
+        }, 750);
+
+        this.text = "Criar";
+      } catch (error) {
+        this.hasError = true;
+        this.clean = true;
+        this.task = "";
+        this.text = "Criar";
+
+        setTimeout(() => {
+          this.hasError = false;
+          this.clean = false;
+        }, 750);
+      }
     },
   },
 });
@@ -28,7 +58,7 @@ export default Vue.extend({
 .todo-creation {
   form {
     display: grid;
-    grid-template-columns: 1fr 5rem;
+    grid-template-columns: 1fr 7rem;
     gap: 1rem;
   }
 }

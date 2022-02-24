@@ -4,10 +4,10 @@
       <div class="list">
         <div v-for="todo in $all" :key="todo.id" class="todo">
           <div class="task">
-            {{ todo.task }}
+            {{ todo.description }}
           </div>
           <div class="buttons">
-            <div class="complete"></div>
+            <div class="complete" @click="complete(todo.id)"></div>
             <div class="delete"></div>
           </div>
         </div>
@@ -24,6 +24,11 @@ export default Vue.extend({
   computed: {
     $all() {
       return todos.$all;
+    },
+  },
+  methods: {
+    async complete(id: number) {
+      await todos.update({ id });
     },
   },
 });

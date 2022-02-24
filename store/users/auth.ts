@@ -8,6 +8,10 @@ interface CreatePayload {
   password: string;
 }
 
+interface UpdatePayload {
+  token: Token;
+}
+
 @Module({ name: "users/auth", stateFactory: true, namespaced: true })
 export default class Auth extends VuexModule {
   private token = null as Token;
@@ -29,6 +33,11 @@ export default class Auth extends VuexModule {
       path: "/",
     });
 
+    this.context.commit("UPDATE_TOKEN", token);
+  }
+
+  @Action({ rawError: true })
+  public update({ token }: UpdatePayload) {
     this.context.commit("UPDATE_TOKEN", token);
   }
 }
