@@ -1,19 +1,69 @@
 <template>
   <div class="login-form">
     <h1 class="title">Login</h1>
-    <form autocomplete="off" @submit.prevent="">
-      <FormField label="Email" type="email" :required="true" />
-      <FormField label="Senha" type="password" :required="true" />
+    <form name="login-form" autocomplete="off" @submit.prevent="onSubmit">
+      <FormField
+        v-model="form.email"
+        label="Email"
+        type="email"
+        :required="true"
+        :clean="hasInvalidCredentials"
+      />
+      <FormField
+        v-model="form.password"
+        label="Senha"
+        type="password"
+        :required="true"
+        :clean="hasInvalidCredentials"
+      />
       <NuxtLink class="form-link forgot-password" to="/forgot-password"
         >Esqueceu a senha?</NuxtLink
       >
-      <FormButton text="Login" />
+      <FormButton text="Login" :error="hasInvalidCredentials" />
       <NuxtLink class="form-link register" to="/register"
         >Não tem uma conta?</NuxtLink
       >
     </form>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { auth } from "~/store";
+export default Vue.extend({
+  data() {
+    return {
+      hasInvalidCredentials: false,
+      form: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    async onSubmit() {
+      try {
+        await auth.create(this.form);
+
+        this.$router.push("/");
+      } catch (error: any) {
+        if (error.response.data.error === "Invalid credentials") {
+          this.hasInvalidCredentials = true;
+
+          setTimeout(() => {
+            this.hasInvalidCredentials = false;
+          }, 750);
+
+          this.form = {
+            email: "",
+            password: "",
+          };
+        }
+      }
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .login-form {

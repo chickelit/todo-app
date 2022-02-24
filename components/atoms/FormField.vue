@@ -53,6 +53,10 @@ export default Vue.extend({
       type: Number,
       default: 256,
     },
+    clean: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -60,6 +64,11 @@ export default Vue.extend({
       active: false,
       empty: true,
     };
+  },
+  watch: {
+    clean() {
+      this.content = "";
+    },
   },
 });
 </script>
