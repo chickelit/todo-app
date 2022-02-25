@@ -31,6 +31,7 @@ export default class Auth extends VuexModule {
 
     $cookies.set("token", token, {
       path: "/",
+      maxAge: 60 * 60 * 24 * 30,
     });
 
     this.context.commit("UPDATE_TOKEN", token);

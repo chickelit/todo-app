@@ -9,6 +9,10 @@ interface UpdatePayload {
   id: number;
 }
 
+interface DestroyPayload {
+  id: number;
+}
+
 @Module({ name: "todos", stateFactory: true, namespaced: true })
 export default class TodosStore extends VuexModule {
   private todos = [] as any[];
@@ -24,11 +28,24 @@ export default class TodosStore extends VuexModule {
 
   @Mutation
   private UPDATE_TODO(todo: any) {
-    const findIndex = this.todos.findIndex(
-      (findTodo) => findTodo.id === todo.id
-    );
+    const mappedTodos = this.todos.map((todoIteration) => {
+      if (todoIteration.done !== todo.done) {
+        todoIteration.done = todo.done;
 
-    this.todos[findIndex] = todo;
+        return todoIteration;
+      }
+
+      return todoIteration;
+    });
+
+    this.todos = mappedTodos;
+  }
+
+  @Mutation
+  private DESTROY_TODO(id: number) {
+    const filteredTodos = this.todos.filter((todo) => todo.id !== id);
+
+    this.todos = filteredTodos;
   }
 
   @Mutation
@@ -55,5 +72,12 @@ export default class TodosStore extends VuexModule {
     const todo = await $axios.$put(`/todos/${payload.id}`);
 
     this.context.commit("UPDATE_TODO", todo);
+  }
+
+  @Action({ rawError: true })
+  public async destroy(payload: DestroyPayload) {
+    await $axios.delete(`/todos/${payload.id}`);
+
+    this.context.commit("DESTROY_TODO", payload.id);
   }
 }

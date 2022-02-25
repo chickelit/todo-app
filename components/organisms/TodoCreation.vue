@@ -35,7 +35,7 @@ export default Vue.extend({
 
         setTimeout(() => {
           this.clean = false;
-        }, 750);
+        }, 50);
 
         this.text = "Criar";
       } catch (error) {
@@ -45,8 +45,11 @@ export default Vue.extend({
         this.text = "Criar";
 
         setTimeout(() => {
-          this.hasError = false;
           this.clean = false;
+        }, 50);
+
+        setTimeout(() => {
+          this.hasError = false;
         }, 750);
       }
     },

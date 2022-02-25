@@ -1,9 +1,11 @@
 <template>
-  <div class="todo-list">
-    <div class="scroll-wrapper">
-      <div class="list">
-        <Todo v-for="todo in $all" :key="todo.id" :todo="todo" />
-      </div>
+  <div :class="['todo', { done: todo.done }]">
+    <div class="task">
+      {{ todo.description }}
+    </div>
+    <div class="buttons">
+      <div class="complete" @click="complete(todo.id)"></div>
+      <div class="delete" @click="destroy(todo.id)"></div>
     </div>
   </div>
 </template>
@@ -11,72 +13,30 @@
 <script lang="ts">
 import Vue from "vue";
 import { todos } from "~/store";
-
 export default Vue.extend({
-  computed: {
-    $all() {
-      return todos.$all;
+  name: "TodoCard",
+  props: {
+    todo: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
+    async complete(id: number) {
+      try {
+        await todos.update({ id });
+      } catch (error) {}
+    },
+    async destroy(id: number) {
+      try {
+        await todos.destroy({ id });
+      } catch (error) {}
     },
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.todo-list {
-  font-family: "Poppins", sans-serif;
-  height: 100%;
-  display: grid;
-  grid-template-rows: 1fr;
-  gap: 1rem;
-  .title {
-    margin: 0;
-  }
-  .scroll-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    .list {
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-auto-rows: max-content;
-      gap: 1rem;
-    }
-    .list::-webkit-scrollbar {
-      width: 0px;
-    }
-  }
-}
-</style>
-.todo-list {
-  font-family: "Poppins", sans-serif;
-  height: 100%;
-  display: grid;
-  grid-template-rows: 1fr;
-  gap: 1rem;
-  .title {
-    margin: 0;
-  }
-  .scroll-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    .list {
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-auto-rows: max-content;
-      gap: 1rem;
-    }
-    .list::-webkit-scrollbar {
-      width: 0px;
-    }
-  }
-}
 .delete {
   background-color: #d53e6b;
   width: 24px;
@@ -150,6 +110,9 @@ export default Vue.extend({
     display: grid;
     grid-template-columns: max-content max-content;
     gap: 0.75rem;
+  }
+  &.done {
+    text-decoration: line-through;
   }
 }
 </style>
