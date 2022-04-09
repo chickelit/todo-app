@@ -1,68 +1,109 @@
-# todo-app
+<div id="sobre"></div>
 
-## Build Setup
+<h1 align="center">Todo app</h1>
+<p align="center">Client para a API de ToDo's</p>
+<div align="center">
+  <img src="https://img.shields.io/badge/npm-v6.14.2-brightgreen" />
+  <img src="https://img.shields.io/badge/node-v14.16.1-brightgreen" />
+  <img src="https://img.shields.io/badge/Typescript-v4.2-blue">
+  <img src="https://img.shields.io/badge/VueJS-v3-brightgreen">
+  <img src="https://img.shields.io/badge/NuxtJS-v2.15.7-darkgreen">
+  <img src="https://img.shields.io/badge/Scss-v10.1.1-ff69b4">
+  <img src="https://img.shields.io/badge/axios-v0.26.0-purple" />
+</div>
+
+<h4 align="center"> 
+   :rocket:  Finalizado  :rocket: 
+</h4>
+
+<div id="tabela-de-conteudos"></div>
+
+Tabela de conteúdos
+=================
+<!--ts-->
+  * [Sobre](#sobre)
+  * [Tabela de conteúdo](#tabela-de-conteudos)
+  * [Imagens](#imagens)
+  * [Pré-requesitos](#pre-requesitos)
+  * [Como rodar](#como-rodar)
+  * [Tecnologias](#tecnologias)
+  * [Autor](#autor)
+
+<!--te-->
+
+<div id="features"></div>
+
+<h3>Features</h3>
+
+- [x] Autenticação
+- [x] Registro
+- [x] Esqueceu a senha
+- [x] CRUD de ToDo's 
+
+<div id="imagens">
+  <table>
+    <tr>
+      <td align="center" style="padding=0;width=50%;">
+        <img src="https://github.com/jose13162/TodoApp/blob/main/docs/project-image.png?raw=true" title="Home">
+      </td>
+    </tr>
+  </table>
+</div>
+
+ <div id="pre-requesitos"></div>
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+<div id="como-rodar"></div>
+
+### 🎲 Rodando o Front End
 
 ```bash
-# install dependencies
+# Clone este repositório
+$ git clone https://github.com/jose13162/TodoApp
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd TodoApp
+
+# Instale as dependências
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Execute a aplicação em modo de desenvolvimento
 $ npm run dev
 
-# build for production and launch server
+# Execute a aplicação em modo de produção
 $ npm run build
-$ npm run start
 
-# generate static project
-$ npm run generate
+# O servidor iniciará na porta:8080 - acesse http://localhost:8080
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+<div id="tecnologias"></div>
 
-## Special Directories
+### 🛠 Tecnologias
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+As seguintes ferramentas foram usadas na construção do projeto:
 
-### `assets`
+- [Node.js](https://nodejs.org/en/)
+- [NuxtJS](https://nuxtjs.org/)
+- [VueJS](https://v3.vuejs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Scss](https://www.sass-lang.com/)
+- [Axios](https://axios-http.com/docs/intro/)
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+<div id="autor"></div>
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+### Autor
 
-### `components`
+---
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+<a href="https://github.com/jose13162">
+  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/77130179?s=400&u=6391f7b20bf725e259e02aa698fe6b4f5266286c&v=4" width="100px;" alt="Foto de perfil de José Anselmo"/>
+  <br />
+  <sub style="color: lightblue; text-decoration: none;"><b>José Anselmo</b></sub>
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+[![Instagram Badge](https://img.shields.io/badge/-@zezin_627-FCAF45?style=flat-square&labelColor=E1306C&logo=instagram&logoColor=white&link=https://instagram.com/zezin_627)](https://instagram.com/zezin_627)
+</a>
