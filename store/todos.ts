@@ -29,7 +29,7 @@ export default class TodosStore extends VuexModule {
   @Mutation
   private UPDATE_TODO(todo: any) {
     const mappedTodos = this.todos.map((todoIteration) => {
-      if (todoIteration.done !== todo.done) {
+      if (todoIteration.id === todo.id && todoIteration.done !== todo.done) {
         todoIteration.done = todo.done;
 
         return todoIteration;
